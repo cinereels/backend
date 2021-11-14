@@ -1,0 +1,63 @@
+import mongoose from 'mongoose';
+
+interface ChannelAttr {
+    name: string;
+    channelNum: number;
+    gallery: string[];
+    showUrl: string;
+    live: boolean;
+};
+
+interface ChannelModel extends mongoose.Model<ChannelDoc> {
+    build(attr: ChannelAttr): ChannelDoc;
+};
+
+interface ChannelDoc extends mongoose.Document {
+    name: string;
+    channelNum: number;
+    gallery: string[];
+    showUrl: string;
+    live: boolean;
+}
+
+const channelSchema = new mongoose.Schema({
+    name: {
+        type: String,
+        required: true,
+    },
+    channelNum: {
+        type: Number,
+        required: true,
+    },
+    gallery: [{
+        type: String,
+        ref: 'Gallery',
+        required: false,
+    }],
+    showUrl: {
+        type: String,
+        required: true,
+    },
+    live: {
+        type: Boolean,
+        required: true,
+        default: false,
+    }
+}, {
+    toJSON: {
+        transform(doc, ret) {
+            ret.id = ret._id;
+            delete ret._id;
+            delete ret.__v;
+        }
+    },
+    timestamps: true,
+});
+
+channelSchema.statics.build = (attrs: ChannelAttr) => {
+    return new Channel(attrs);
+}
+
+const Channel = mongoose.model<ChannelDoc, ChannelModel>('Channel', channelSchema);
+
+export { Channel };
