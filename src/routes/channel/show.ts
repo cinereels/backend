@@ -7,14 +7,16 @@ Router.get('/api/channel/:id', async (req: Request, res: Response, next: NextFun
     try {
         const id = req.params.id;
 
-        const channel = await Channel.findById(id).populate('gallery');
+        const channel = await Channel.findById(id);
 
         if (!channel) {
             throw new Error('Channel not found!');
         }
 
+        channel.populate('video').populate('gallery');
+
         res.status(200).send({
-            message: 'Channel received!',
+            message: 'Channel Received!',
             channel,
         });
     } catch (err) {

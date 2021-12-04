@@ -1,11 +1,12 @@
 import mongoose from 'mongoose';
 
 interface ChannelAttr {
+    channelNo: number;
     name: string;
-    channelNum: number;
     gallery: string[];
-    showUrl: string;
     live: boolean;
+    genre: string;
+    video: string;
 };
 
 interface ChannelModel extends mongoose.Model<ChannelDoc> {
@@ -16,8 +17,9 @@ interface ChannelDoc extends mongoose.Document {
     name: string;
     channelNum: number;
     gallery: string[];
-    showUrl: string;
     live: boolean;
+    genre: string;
+    video: string;
 }
 
 const channelSchema = new mongoose.Schema({
@@ -34,15 +36,20 @@ const channelSchema = new mongoose.Schema({
         ref: 'Gallery',
         required: false,
     }],
-    showUrl: {
-        type: String,
-        required: true,
-    },
     live: {
         type: Boolean,
         required: true,
         default: false,
-    }
+    },
+    genre: {
+        type: String,
+        required: true,
+    },
+    video: {
+        type: String,
+        ref: 'Video',
+        required: true,
+    },
 }, {
     toJSON: {
         transform(doc, ret) {

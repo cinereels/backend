@@ -42,36 +42,47 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ChannelCreateRouter = void 0;
 var express_1 = __importDefault(require("express"));
 var channel_1 = require("../../models/channel");
+var video_1 = require("../../models/video");
 var channel_2 = require("../../validators/channel");
 var Router = express_1.default.Router();
 exports.ChannelCreateRouter = Router;
 Router.post('/api/channel', channel_2.ChannelValidator, function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var _a, name_1, channelNum, galleryIds, showUrl, live, channel, err_1;
+    var _a, name_1, channelNo, description, gallery, url, live, genre, video, channel, err_1;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0:
-                _b.trys.push([0, 2, , 3]);
-                _a = req.body, name_1 = _a.name, channelNum = _a.channelNum, galleryIds = _a.galleryIds, showUrl = _a.showUrl, live = _a.live;
-                channel = channel_1.Channel.build({
-                    name: name_1,
-                    channelNum: channelNum,
-                    gallery: galleryIds,
-                    showUrl: showUrl,
-                    live: live,
+                _b.trys.push([0, 3, , 4]);
+                _a = req.body, name_1 = _a.name, channelNo = _a.channelNo, description = _a.description, gallery = _a.gallery, url = _a.url, live = _a.live, genre = _a.genre;
+                video = video_1.Video.build({
+                    title: name_1,
+                    url: url,
+                    description: description,
+                    duration: '',
                 });
-                return [4 /*yield*/, channel.save()];
+                return [4 /*yield*/, video.save()];
             case 1:
                 _b.sent();
+                channel = channel_1.Channel.build({
+                    channelNo: channelNo,
+                    name: name_1,
+                    gallery: gallery,
+                    genre: genre,
+                    live: live,
+                    video: video.id,
+                });
+                return [4 /*yield*/, channel.save()];
+            case 2:
+                _b.sent();
                 res.status(201).send({
-                    message: 'Channel created!',
+                    message: 'Channel Added',
                     channel: channel,
                 });
-                return [3 /*break*/, 3];
-            case 2:
+                return [3 /*break*/, 4];
+            case 3:
                 err_1 = _b.sent();
                 next(err_1);
-                return [3 /*break*/, 3];
-            case 3: return [2 /*return*/];
+                return [3 /*break*/, 4];
+            case 4: return [2 /*return*/];
         }
     });
 }); });

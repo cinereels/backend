@@ -5,7 +5,7 @@ const Router = express.Router();
 
 Router.get('/api/channel', async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const channels = await Channel.find().populate('gallery');
+        const channels = await Channel.find().populate('video').populate('gallery');
 
         res.status(200).send({
             message: 'Channel received!',

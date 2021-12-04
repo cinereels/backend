@@ -50,7 +50,7 @@ Router.get('/api/channel', function (req, res, next) { return __awaiter(void 0, 
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, channel_1.Channel.find().populate('gallery')];
+                return [4 /*yield*/, channel_1.Channel.find().populate('video').populate('gallery')];
             case 1:
                 channels = _a.sent();
                 res.status(200).send({

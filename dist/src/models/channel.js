@@ -21,15 +21,20 @@ var channelSchema = new mongoose_1.default.Schema({
             ref: 'Gallery',
             required: false,
         }],
-    showUrl: {
-        type: String,
-        required: true,
-    },
     live: {
         type: Boolean,
         required: true,
         default: false,
-    }
+    },
+    genre: {
+        type: String,
+        required: true,
+    },
+    video: {
+        type: String,
+        ref: 'Video',
+        required: true,
+    },
 }, {
     toJSON: {
         transform: function (doc, ret) {

@@ -51,14 +51,15 @@ Router.get('/api/channel/:id', function (req, res, next) { return __awaiter(void
             case 0:
                 _a.trys.push([0, 2, , 3]);
                 id = req.params.id;
-                return [4 /*yield*/, channel_1.Channel.findById(id).populate('gallery')];
+                return [4 /*yield*/, channel_1.Channel.findById(id)];
             case 1:
                 channel = _a.sent();
                 if (!channel) {
                     throw new Error('Channel not found!');
                 }
+                channel.populate('video').populate('gallery');
                 res.status(200).send({
-                    message: 'Channel received!',
+                    message: 'Channel Received!',
                     channel: channel,
                 });
                 return [3 /*break*/, 3];

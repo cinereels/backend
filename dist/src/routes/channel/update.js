@@ -42,15 +42,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ChannelUpdateRouter = void 0;
 var express_1 = __importDefault(require("express"));
 var channel_1 = require("../../models/channel");
+var video_1 = require("../../models/video");
 var channel_2 = require("../../validators/channel");
 var Router = express_1.default.Router();
 exports.ChannelUpdateRouter = Router;
 Router.put('/api/channel/:id', channel_2.ChannelValidator, function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var id, channel, _a, name_1, channelNum, galleryIds, showUrl, live, err_1;
+    var id, channel, video, _a, name_1, channelNo, description, gallery, url, live, genre, err_1;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0:
-                _b.trys.push([0, 3, , 4]);
+                _b.trys.push([0, 5, , 6]);
                 id = req.params.id;
                 return [4 /*yield*/, channel_1.Channel.findById(id)];
             case 1:
@@ -58,27 +59,43 @@ Router.put('/api/channel/:id', channel_2.ChannelValidator, function (req, res, n
                 if (!channel) {
                     throw new Error('Channel not found!');
                 }
-                _a = req.body, name_1 = _a.name, channelNum = _a.channelNum, galleryIds = _a.galleryIds, showUrl = _a.showUrl, live = _a.live;
+                return [4 /*yield*/, video_1.Video.findById(channel.video)];
+            case 2:
+                video = _b.sent();
+                if (!video) {
+                    throw new Error('Video not found!');
+                }
+                _a = req.body, name_1 = _a.name, channelNo = _a.channelNo, description = _a.description, gallery = _a.gallery, url = _a.url, live = _a.live, genre = _a.genre;
+                video.set({
+                    title: name_1,
+                    url: url,
+                    description: description,
+                    duration: '',
+                });
+                return [4 /*yield*/, video.save()];
+            case 3:
+                _b.sent();
                 channel.set({
+                    channelNo: channelNo,
                     name: name_1,
-                    channelNum: channelNum,
-                    gallery: galleryIds,
-                    showUrl: showUrl,
+                    gallery: gallery,
+                    genre: genre,
                     live: live,
+                    video: video.id,
                 });
                 return [4 /*yield*/, channel.save()];
-            case 2:
+            case 4:
                 _b.sent();
                 res.status(200).send({
-                    message: 'Channel updated!',
+                    message: 'Channel Updated',
                     channel: channel,
                 });
-                return [3 /*break*/, 4];
-            case 3:
+                return [3 /*break*/, 6];
+            case 5:
                 err_1 = _b.sent();
                 next(err_1);
-                return [3 /*break*/, 4];
-            case 4: return [2 /*return*/];
+                return [3 /*break*/, 6];
+            case 6: return [2 /*return*/];
         }
     });
 }); });
