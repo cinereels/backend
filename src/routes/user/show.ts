@@ -22,9 +22,17 @@ Router.get('/api/user/:id', requireAdmin, async (req: Request, res: Response, ne
 
 Router.get('/api/current-user', requireAuth, async (req: Request, res: Response, next: NextFunction) => {
     try {
+        const id = req.currentUser?.id;
+
+        const currentUser = await User.findById(id);
+
+        if (!currentUser) {
+            throw new Error('Current user not found!');
+        }
+
         res.status(200).send({
-            message: 'User Received',
-            currentUser: req.currentUser,
+            message: 'Current User Received',
+            currentUser,
         });
     } catch (err) {
         next(err);
