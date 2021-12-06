@@ -67,7 +67,7 @@ Router.post('/api/series', require_admin_1.requireAdmin, series_2.SeriesValidato
                 _b.sent();
                 notification = notification_1.Notification.build({
                     title: name_1 + ' Released',
-                    description: name_1 + " is now avialable on the application to binge watch, go on and enjoy the TV show's new episodes right now",
+                    description: "".concat(name_1, " is now avialable on the application to binge watch, go on and enjoy the TV show's new episodes right now"),
                     gallery: gallery,
                 });
                 return [4 /*yield*/, notification.save()];

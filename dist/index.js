@@ -47,7 +47,7 @@ var start = function () { return __awaiter(void 0, void 0, void 0, function () {
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, mongoose_1.default.connect("mongodb+srv://" + process.env.MONGO_DB_USERNAME + ":" + process.env.MONGO_DB_PASSWORD + "@cluster0.fnmec.mongodb.net/cinereels", {
+                return [4 /*yield*/, mongoose_1.default.connect("mongodb+srv://".concat(process.env.MONGO_DB_USERNAME, ":").concat(process.env.MONGO_DB_PASSWORD, "@cluster0.fnmec.mongodb.net/cinereels"), {
                         useUnifiedTopology: true,
                         useNewUrlParser: true,
                     })];

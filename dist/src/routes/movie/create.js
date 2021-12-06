@@ -77,7 +77,7 @@ Router.post('/api/movie', require_admin_1.requireAdmin, movie_2.MovieValidator, 
                 _b.sent();
                 notification = notification_1.Notification.build({
                     title: name_1 + ' Released',
-                    description: name_1 + " is now avialable on the application to binge watch, go on and enjoy the movie",
+                    description: "".concat(name_1, " is now avialable on the application to binge watch, go on and enjoy the movie"),
                     gallery: gallery,
                 });
                 return [4 /*yield*/, notification.save()];

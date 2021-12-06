@@ -46,17 +46,18 @@ var bcryptjs_1 = __importDefault(require("bcryptjs"));
 var user_1 = require("../../models/user");
 var auth_1 = require("../../validators/auth");
 var validate_request_1 = require("../../middlewares/validate-request");
+var nodemailer_1 = require("nodemailer");
 var Router = express_1.default.Router();
 exports.SignupRouter = Router;
 var randomNum = function (min, max) {
     return Math.floor(Math.random() * (max - min)) + min;
 };
 Router.post('/api/auth/signup', auth_1.AuthValidator, validate_request_1.validateRequest, function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var _a, email, password, existingUser, passwordHash, color, isAdmin, user, token, expiryDate, err_1;
+    var _a, email, password, existingUser, passwordHash, color, isAdmin, user, token, expiryDate, transporter, verificationCode, mail, err_1;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0:
-                _b.trys.push([0, 4, , 5]);
+                _b.trys.push([0, 5, , 6]);
                 _a = req.body, email = _a.email, password = _a.password;
                 return [4 /*yield*/, user_1.User.findOne({ email: email })];
             case 1:
@@ -82,6 +83,23 @@ Router.post('/api/auth/signup', auth_1.AuthValidator, validate_request_1.validat
                     expiresIn: '24h',
                 });
                 expiryDate = Math.round(new Date().getTime() / 1000) + 24 * 3600;
+                transporter = (0, nodemailer_1.createTransport)({
+                    service: 'Gmail',
+                    auth: {
+                        user: 'cinereelsapp@gmail.com',
+                        pass: 'startup247',
+                    }
+                });
+                verificationCode = '321022';
+                return [4 /*yield*/, transporter.sendMail({
+                        from: 'cinereelsapp@gmail.com',
+                        to: email,
+                        subject: 'Email verification of your cinereels account',
+                        text: 'This is an email verification mail sent for verifying your provided email address. Below provided is a 6 digit verification code for completing the sign-up process. Please enter the following verification code on the cinereels application.',
+                        html: "<h1>".concat(verificationCode, "</h1>"),
+                    })];
+            case 4:
+                mail = _b.sent();
                 res.status(201).send({
                     message: 'User signed up successfully',
                     token: token,
@@ -89,12 +107,12 @@ Router.post('/api/auth/signup', auth_1.AuthValidator, validate_request_1.validat
                     expiryDate: expiryDate,
                     isAdmin: isAdmin,
                 });
-                return [3 /*break*/, 5];
-            case 4:
+                return [3 /*break*/, 6];
+            case 5:
                 err_1 = _b.sent();
                 next(err_1);
-                return [3 /*break*/, 5];
-            case 5: return [2 /*return*/];
+                return [3 /*break*/, 6];
+            case 6: return [2 /*return*/];
         }
     });
 }); });

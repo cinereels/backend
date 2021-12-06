@@ -70,16 +70,29 @@ Router.get('/api/user/:id', require_admin_1.requireAdmin, function (req, res, ne
     });
 }); });
 Router.get('/api/current-user', require_auth_1.requireAuth, function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    return __generator(this, function (_a) {
-        try {
-            res.status(200).send({
-                message: 'User Received',
-                currentUser: req.currentUser,
-            });
+    var id, currentUser, err_2;
+    var _a;
+    return __generator(this, function (_b) {
+        switch (_b.label) {
+            case 0:
+                _b.trys.push([0, 2, , 3]);
+                id = (_a = req.currentUser) === null || _a === void 0 ? void 0 : _a.id;
+                return [4 /*yield*/, user_1.User.findById(id)];
+            case 1:
+                currentUser = _b.sent();
+                if (!currentUser) {
+                    throw new Error('Current user not found!');
+                }
+                res.status(200).send({
+                    message: 'Current User Received',
+                    currentUser: currentUser,
+                });
+                return [3 /*break*/, 3];
+            case 2:
+                err_2 = _b.sent();
+                next(err_2);
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
         }
-        catch (err) {
-            next(err);
-        }
-        return [2 /*return*/];
     });
 }); });
