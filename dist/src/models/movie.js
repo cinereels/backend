@@ -27,8 +27,17 @@ var MovieSchema = new mongoose_1.default.Schema({
     },
     gallery: [{
             type: String,
+            ref: 'Gallery',
             required: false,
         }],
+    imdb: {
+        type: String,
+        required: false,
+    },
+    rt: {
+        type: String,
+        required: false,
+    },
 }, {
     toJSON: {
         transform: function (doc, ret) {

@@ -10,7 +10,7 @@ const Router = express.Router();
 
 Router.post('/api/movie', requireAdmin, MovieValidator, validateRequest, async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const { name, description, gallery, url, genre, duration } = req.body;
+        const { name, description, gallery, url, genre, duration, imdb, rt } = req.body;
         
         const video = Video.build({
             title: name,
@@ -27,6 +27,8 @@ Router.post('/api/movie', requireAdmin, MovieValidator, validateRequest, async (
             gallery,
             genre,
             video: video.id,
+            imdb,
+            rt,
         });
 
         await movie.save();

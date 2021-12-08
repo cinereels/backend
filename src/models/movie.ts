@@ -6,6 +6,8 @@ interface MovieAttr {
     video: string;
     genre: string;
     gallery: string[];
+    imdb: string;
+    rt: string;
 };
 
 interface MovieModel extends mongoose.Model<MovieDoc> {
@@ -18,6 +20,8 @@ interface MovieDoc extends mongoose.Document {
     video: string;
     genre: string;
     gallery: string[];
+    imdb: string;
+    rt: string;
 }
 
 const MovieSchema = new mongoose.Schema({
@@ -40,8 +44,17 @@ const MovieSchema = new mongoose.Schema({
     },
     gallery: [{
         type: String,
+        ref: 'Gallery',
         required: false,
     }],
+    imdb: {
+        type: String,
+        required: false,
+    },
+    rt: {
+        type: String,
+        required: false,
+    },   
 }, {
     toJSON: {
         transform(doc, ret) {

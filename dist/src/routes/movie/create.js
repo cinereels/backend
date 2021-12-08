@@ -50,12 +50,12 @@ var movie_2 = require("../../validators/movie");
 var Router = express_1.default.Router();
 exports.MovieCreateRouter = Router;
 Router.post('/api/movie', require_admin_1.requireAdmin, movie_2.MovieValidator, validate_request_1.validateRequest, function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var _a, name_1, description, gallery, url, genre, duration, video, movie, notification, err_1;
+    var _a, name_1, description, gallery, url, genre, duration, imdb, rt, video, movie, notification, err_1;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0:
                 _b.trys.push([0, 4, , 5]);
-                _a = req.body, name_1 = _a.name, description = _a.description, gallery = _a.gallery, url = _a.url, genre = _a.genre, duration = _a.duration;
+                _a = req.body, name_1 = _a.name, description = _a.description, gallery = _a.gallery, url = _a.url, genre = _a.genre, duration = _a.duration, imdb = _a.imdb, rt = _a.rt;
                 video = video_1.Video.build({
                     title: name_1,
                     description: description,
@@ -71,6 +71,8 @@ Router.post('/api/movie', require_admin_1.requireAdmin, movie_2.MovieValidator, 
                     gallery: gallery,
                     genre: genre,
                     video: video.id,
+                    imdb: imdb,
+                    rt: rt,
                 });
                 return [4 /*yield*/, movie.save()];
             case 2:
