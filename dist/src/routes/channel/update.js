@@ -41,12 +41,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ChannelUpdateRouter = void 0;
 var express_1 = __importDefault(require("express"));
+var require_admin_1 = require("../../middlewares/require-admin");
+var validate_request_1 = require("../../middlewares/validate-request");
 var channel_1 = require("../../models/channel");
 var video_1 = require("../../models/video");
 var channel_2 = require("../../validators/channel");
 var Router = express_1.default.Router();
 exports.ChannelUpdateRouter = Router;
-Router.put('/api/channel/:id', channel_2.ChannelValidator, function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+Router.put('/api/channel/:id', require_admin_1.requireAdmin, channel_2.ChannelValidator, validate_request_1.validateRequest, function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
     var id, channel, video, _a, name_1, channelNo, description, gallery, url, live, genre, err_1;
     return __generator(this, function (_b) {
         switch (_b.label) {

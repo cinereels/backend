@@ -9,9 +9,6 @@ const validator = [
         .not()
         .isEmpty()
         .withMessage('Season description must be provided!'),
-    body('gallery')
-        .isArray({ min: 1 })
-        .withMessage('Atleast 1 season image must be provided!'),
 ];
 
 export { validator as SeasonValidator };

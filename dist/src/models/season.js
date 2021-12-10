@@ -21,11 +21,6 @@ var seasonSchema = new mongoose_1.default.Schema({
             ref: 'Episode',
             required: false,
         }],
-    gallery: [{
-            type: String,
-            ref: 'Gallery',
-            required: false,
-        }],
 }, {
     toJSON: {
         transform: function (doc, ret) {

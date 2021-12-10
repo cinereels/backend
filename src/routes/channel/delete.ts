@@ -1,9 +1,10 @@
 import express, { Request, Response, NextFunction } from 'express';
+import { requireAdmin } from '../../middlewares/require-admin';
 import { Channel } from '../../models/channel';
 
 const Router = express.Router();
 
-Router.delete('/api/channel/:id', async (req: Request, res: Response, next: NextFunction) => {
+Router.delete('/api/channel/:id', requireAdmin, async (req: Request, res: Response, next: NextFunction) => {
     try {
         const id = req.params.id;
 

@@ -41,10 +41,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ChannelDeleteRouter = void 0;
 var express_1 = __importDefault(require("express"));
+var require_admin_1 = require("../../middlewares/require-admin");
 var channel_1 = require("../../models/channel");
 var Router = express_1.default.Router();
 exports.ChannelDeleteRouter = Router;
-Router.delete('/api/channel/:id', function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+Router.delete('/api/channel/:id', require_admin_1.requireAdmin, function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
     var id, channel, err_1;
     return __generator(this, function (_a) {
         switch (_a.label) {

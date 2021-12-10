@@ -12,7 +12,7 @@ var channelSchema = new mongoose_1.default.Schema({
         type: String,
         required: true,
     },
-    channelNum: {
+    channelNo: {
         type: Number,
         required: true,
     },

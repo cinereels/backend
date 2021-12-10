@@ -8,13 +8,12 @@ const Router = express.Router();
 
 Router.post('/api/season', requireAdmin, SeasonValidator, validateRequest, async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const { seasonNo, description, episodes, gallery } = req.body;
+        const { seasonNo, description, episodes } = req.body;
 
         const season = Season.build({
             seasonNo,
             description,
             episodes,
-            gallery,
         });
 
         await season.save();

@@ -1,11 +1,13 @@
 import express, { Request, Response, NextFunction } from 'express';
+import { requireAdmin } from '../../middlewares/require-admin';
+import { validateRequest } from '../../middlewares/validate-request';
 import { Channel } from '../../models/channel';
 import { Video } from '../../models/video';
 import { ChannelValidator } from '../../validators/channel';
 
 const Router = express.Router();
 
-Router.put('/api/channel/:id', ChannelValidator, async (req: Request, res: Response, next: NextFunction) => {
+Router.put('/api/channel/:id', requireAdmin, ChannelValidator, validateRequest, async (req: Request, res: Response, next: NextFunction) => {
     try {
         const id = req.params.id;
 

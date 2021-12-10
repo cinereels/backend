@@ -48,17 +48,16 @@ var season_2 = require("../../validators/season");
 var Router = express_1.default.Router();
 exports.SeasonCreateRouter = Router;
 Router.post('/api/season', require_admin_1.requireAdmin, season_2.SeasonValidator, validate_request_1.validateRequest, function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var _a, seasonNo, description, episodes, gallery, season, err_1;
+    var _a, seasonNo, description, episodes, season, err_1;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0:
                 _b.trys.push([0, 2, , 3]);
-                _a = req.body, seasonNo = _a.seasonNo, description = _a.description, episodes = _a.episodes, gallery = _a.gallery;
+                _a = req.body, seasonNo = _a.seasonNo, description = _a.description, episodes = _a.episodes;
                 season = season_1.Season.build({
                     seasonNo: seasonNo,
                     description: description,
                     episodes: episodes,
-                    gallery: gallery,
                 });
                 return [4 /*yield*/, season.save()];
             case 1:

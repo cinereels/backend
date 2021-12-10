@@ -48,7 +48,7 @@ var season_2 = require("../../validators/season");
 var Router = express_1.default.Router();
 exports.SeasonUpdateRouter = Router;
 Router.put('/api/season/:id', require_admin_1.requireAdmin, season_2.SeasonValidator, validate_request_1.validateRequest, function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var id, season, _a, seasonNo, description, episodes, gallery, err_1;
+    var id, season, _a, seasonNo, description, episodes, err_1;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0:
@@ -60,12 +60,11 @@ Router.put('/api/season/:id', require_admin_1.requireAdmin, season_2.SeasonValid
                 if (!season) {
                     throw new Error('Season not found!');
                 }
-                _a = req.body, seasonNo = _a.seasonNo, description = _a.description, episodes = _a.episodes, gallery = _a.gallery;
+                _a = req.body, seasonNo = _a.seasonNo, description = _a.description, episodes = _a.episodes;
                 season.set({
                     seasonNo: seasonNo,
                     description: description,
                     episodes: episodes,
-                    gallery: gallery,
                 });
                 return [4 /*yield*/, season.save()];
             case 2:

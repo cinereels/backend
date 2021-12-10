@@ -15,7 +15,7 @@ interface ChannelModel extends mongoose.Model<ChannelDoc> {
 
 interface ChannelDoc extends mongoose.Document {
     name: string;
-    channelNum: number;
+    channelNo: number;
     gallery: string[];
     live: boolean;
     genre: string;
@@ -27,7 +27,7 @@ const channelSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    channelNum: {
+    channelNo: {
         type: Number,
         required: true,
     },

@@ -16,13 +16,12 @@ Router.put('/api/season/:id', requireAdmin, SeasonValidator, validateRequest, as
             throw new Error('Season not found!');
         }
 
-        const { seasonNo, description, episodes, gallery } = req.body;
+        const { seasonNo, description, episodes } = req.body;
 
         season.set({
             seasonNo,
             description,
             episodes,
-            gallery,
         });
 
         await season.save();

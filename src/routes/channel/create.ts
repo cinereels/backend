@@ -1,11 +1,13 @@
 import express, { Request, Response, NextFunction } from 'express';
+import { requireAdmin } from '../../middlewares/require-admin';
+import { validateRequest } from '../../middlewares/validate-request';
 import { Channel } from '../../models/channel';
 import { Video } from '../../models/video';
 import { ChannelValidator } from '../../validators/channel';
 
 const Router = express.Router();
 
-Router.post('/api/channel', ChannelValidator, async (req: Request, res: Response, next: NextFunction) => {
+Router.post('/api/channel', requireAdmin, ChannelValidator, validateRequest, async (req: Request, res: Response, next: NextFunction) => {
     try {
         const { name, channelNo, description, gallery, url, live, genre } = req.body;
 
@@ -13,7 +15,7 @@ Router.post('/api/channel', ChannelValidator, async (req: Request, res: Response
             title: name,
             url,
             description,
-            duration: '',
+            duration: '00:00',
         });
 
         await video.save();
