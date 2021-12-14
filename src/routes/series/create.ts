@@ -31,7 +31,7 @@ Router.post('/api/series', requireAdmin, SeriesValidator, validateRequest, async
 
         res.status(201).send({
             message: 'Series Added',
-            series,
+            series: series.populate('seaons').populate('gallery'),
         });
     } catch (err) {
         next(err);

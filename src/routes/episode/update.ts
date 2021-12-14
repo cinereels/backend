@@ -44,7 +44,7 @@ Router.put('/api/episode/:id', requireAdmin, EpisodeValidator, validateRequest, 
 
         res.status(204).send({
             message: 'Episode Updated',
-            episode,
+            episode: episode.populate('gallery').populate('video'),
         });
     } catch (err) {
         next(err);

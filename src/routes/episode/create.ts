@@ -30,7 +30,7 @@ Router.post('/api/episode', requireAdmin, EpisodeValidator, validateRequest, asy
 
         res.status(201).send({
             message: 'Episode Added',
-            episode,
+            episode: episode.populate('gallery').populate('video'),
         });
     } catch (err) {
         next(err);

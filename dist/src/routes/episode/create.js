@@ -72,7 +72,7 @@ Router.post('/api/episode', require_admin_1.requireAdmin, episode_2.EpisodeValid
                 episode.save();
                 res.status(201).send({
                     message: 'Episode Added',
-                    episode: episode,
+                    episode: episode.populate('gallery').populate('video'),
                 });
                 return [3 /*break*/, 3];
             case 2:

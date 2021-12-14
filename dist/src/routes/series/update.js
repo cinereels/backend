@@ -73,7 +73,7 @@ Router.put('/api/series/:id', require_admin_1.requireAdmin, series_2.SeriesValid
                 _b.sent();
                 res.status(204).send({
                     message: 'Series Updated',
-                    series: series,
+                    series: series.populate('seasons').populate('gallery'),
                 });
                 return [3 /*break*/, 4];
             case 3:

@@ -85,7 +85,7 @@ Router.put('/api/episode/:id', require_admin_1.requireAdmin, episode_2.EpisodeVa
                 episode.save();
                 res.status(204).send({
                     message: 'Episode Updated',
-                    episode: episode,
+                    episode: episode.populate('gallery').populate('video'),
                 });
                 return [3 /*break*/, 5];
             case 4:

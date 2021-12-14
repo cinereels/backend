@@ -30,7 +30,7 @@ Router.put('/api/series/:id', requireAdmin, SeriesValidator, validateRequest, as
 
         res.status(204).send({
             message: 'Series Updated',
-            series,
+            series: series.populate('seasons').populate('gallery'),
         });
     } catch (err) {
         next(err);

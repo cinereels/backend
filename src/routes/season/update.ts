@@ -28,7 +28,7 @@ Router.put('/api/season/:id', requireAdmin, SeasonValidator, validateRequest, as
         
         res.status(204).send({
             message: 'Season Updated',
-            season,
+            season: season.populate('episodes'),
         });
     } catch (err) {
         throw err;

@@ -71,7 +71,7 @@ Router.put('/api/season/:id', require_admin_1.requireAdmin, season_2.SeasonValid
                 _b.sent();
                 res.status(204).send({
                     message: 'Season Updated',
-                    season: season,
+                    season: season.populate('episodes'),
                 });
                 return [3 /*break*/, 4];
             case 3:

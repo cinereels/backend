@@ -64,7 +64,7 @@ Router.post('/api/season', require_admin_1.requireAdmin, season_2.SeasonValidato
                 _b.sent();
                 res.status(201).send({
                     message: 'Season Added',
-                    season: season,
+                    season: season.populate('episodes'),
                 });
                 return [3 /*break*/, 3];
             case 2:
